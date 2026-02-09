@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Will You Be My Valentine?</title>
 
 <style>
@@ -19,6 +20,7 @@
     background-image:
       radial-gradient(circle, rgba(255,255,255,0.35) 2px, transparent 2.5px);
     background-size: 40px 40px;
+    overflow-x: hidden;
   }
 
   .card {
@@ -31,7 +33,7 @@
   }
 
   h1 {
-    font-size: 38px;
+    font-size: clamp(28px, 5vw, 38px);
     margin: 0;
   }
 
@@ -43,6 +45,7 @@
   .image-box {
     margin: 22px auto;
     width: 280px;
+    max-width: 80vw;
     background: #f7f7f7;
     border-radius: 18px;
     padding: 16px;
@@ -90,12 +93,18 @@
     display: none;
   }
 
-  /* YES SCREEN */
+  /* FULL-SCREEN YES SCREEN (MOBILE FIX) */
   #yesCard {
-    min-height: 100vh;
+    position: fixed;
+    inset: 0;
+    background-color: #6b4eff;
+    background-image:
+      radial-gradient(circle, rgba(255,255,255,0.35) 2px, transparent 2.5px);
+    background-size: 40px 40px;
     display: grid;
     place-items: center;
     text-align: center;
+    z-index: 999;
   }
 </style>
 </head>
@@ -141,11 +150,8 @@
     const maxX = Math.max(0, area.width - btn.width);
     const maxY = Math.max(0, area.height - btn.height);
 
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
-
-    noBtn.style.left = x + "px";
-    noBtn.style.top  = y + "px";
+    noBtn.style.left = Math.random() * maxX + "px";
+    noBtn.style.top  = Math.random() * maxY + "px";
   }
 
   function growYes() {
@@ -171,3 +177,4 @@
 
 </body>
 </html>
+
