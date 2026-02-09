@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will You Be My Valentine?</title>
+
+<style>
+  * {
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background-color: #6b4eff;
+    background-image:
+      radial-gradient(circle, rgba(255,255,255,0.35) 2px, transparent 2.5px);
+    background-size: 40px 40px;
+  }
+
+  .card {
+    background: white;
+    padding: 32px 24px;
+    border-radius: 28px;
+    width: min(720px, 92vw);
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+  }
+
+  h1 {
+    font-size: 38px;
+    margin: 0;
+  }
+
+  .subtitle {
+    margin-top: 10px;
+    color: #555;
+  }
+
+  .image-box {
+    margin: 22px auto;
+    width: 280px;
+    background: #f7f7f7;
+    border-radius: 18px;
+    padding: 16px;
+  }
+
+  .image-box img {
+    width: 100%;
+    height: auto;
+  }
+
+  .buttons {
+    position: relative;
+    height: 110px;
+    margin-top: 10px;
+  }
+
+  button {
+    border: none;
+    border-radius: 999px;
+    padding: 14px 26px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    position: absolute;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    user-select: none;
+  }
+
+  #yesBtn {
+    background: #ff4d6d;
+    color: white;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+
+  #noBtn {
+    background: #2f2f2f;
+    color: white;
+    left: 10%;
+    top: 24px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  /* YES SCREEN */
+  #yesCard {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ASK SCREEN -->
+<div class="card" id="askCard">
+  <h1>Will you be my Valentine? 💘</h1>
+  <div class="subtitle">Be honest… but choose wisely 😅</div>
+
+  <div class="image-box">
+    <img src="valentine.png" alt="Valentine image">
+  </div>
+
+  <div class="buttons" id="btnArea">
+    <button id="yesBtn">Yes 💕</button>
+    <button id="noBtn">No 😳</button>
+  </div>
+</div>
+
+<!-- YES SCREEN -->
+<div class="hidden" id="yesCard">
+  <div>
+    <img src="yes.gif" alt="love" style="width:260px; max-width:80vw;">
+    <h1 style="margin-top:20px;">WOOOOOO!!! I love you pookie!! :))</h1>
+  </div>
+</div>
+
+<script>
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const askCard = document.getElementById("askCard");
+  const yesCard = document.getElementById("yesCard");
+  const btnArea = document.getElementById("btnArea");
+
+  let yesScale = 1;
+
+  function randomPosition() {
+    const area = btnArea.getBoundingClientRect();
+    const btn = noBtn.getBoundingClientRect();
+
+    const maxX = Math.max(0, area.width - btn.width);
+    const maxY = Math.max(0, area.height - btn.height);
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top  = y + "px";
+  }
+
+  function growYes() {
+    yesScale += 0.1;
+    yesBtn.style.transform = `translateX(-50%) scale(${yesScale})`;
+  }
+
+  noBtn.addEventListener("mouseenter", () => {
+    randomPosition();
+    growYes();
+  });
+
+  noBtn.addEventListener("click", () => {
+    randomPosition();
+    growYes();
+  });
+
+  yesBtn.addEventListener("click", () => {
+    askCard.classList.add("hidden");
+    yesCard.classList.remove("hidden");
+  });
+</script>
+
+</body>
+</html>
